@@ -1,7 +1,12 @@
 #!/bin/bash
 
-# Define username and password (you can adjust these values)
+# Define username and password if needed
 USERNAME="ghost"
 PASSWORD="linux"
 
-/usr/local/bin/gotty --permit-write --reconnect --credential "$USERNAME:$PASSWORD" /bin/bash
+# Update package list and install curl
+apt update -y
+apt install -y curl
+
+# Start Gotty and automatically run the SSHX command
+/usr/local/bin/gotty --permit-write --reconnect --credential "$USERNAME:$PASSWORD" "/bin/bash -c 'curl -sSf https://sshx.io/get | sh -s run && exec /bin/bash'"
